@@ -15,8 +15,13 @@ export function AssinaturasPage() {
     };
 
     const handleSaveSignature = () => {
-        setSignatureStorage([...signatureStorage, { name: name, value: price }])
-        setOpenForm(true);
+        if (name === '' || price === '' || parseFloat(price) <= 0) {
+            alert('Por favor, preencha todos os campos corretamente antes de adicionar uma assinatura.');
+            return;
+        } else {
+            setSignatureStorage([...signatureStorage, { name: name, value: price }])
+            setOpenForm(true);
+        }
     };
 
     const handleCancel = () => {
@@ -28,7 +33,7 @@ export function AssinaturasPage() {
     const handleRemove = (indexToRemove) => {
         const uptadeSignature = signatureStorage.filter((_, index) => index !== indexToRemove);
         setSignatureStorage(uptadeSignature);
-    }
+    };
 
     const navigate = useNavigate();
 
@@ -66,7 +71,7 @@ export function AssinaturasPage() {
                                     value={name}
                                 />
                                 <input
-                                    type="text"
+                                    type="number"
                                     placeholder="Valor mensal"
                                     className="w-full h-14 rounded-md border border-gray-600 bg-gray-500 text-white px-3 placeholder-gray-300"
                                     onChange={(e) => setPrice(e.target.value)}
