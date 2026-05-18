@@ -47,69 +47,65 @@ export function InvestimentosPage() {
 
 
     return (
-        <div className="w-screen min-h-screen bg-gray-950 flex">
-            <div className="w-full max-w-7xl mx-auto bg-gray-700 min-h-screen px-10 py-6">
-                <div>
-                    <button className="flex top-0 left-0 items-center justify-center w-auto h-auto rounded-md bg-gray-800  cursor-pointer hover:bg-gray-900 transition-colors"
+        <div className="min-h-screen w-full bg-gray-50 px-4 py-8">
+            <div className="mx-auto min-h-screen w-full max-w-5xl">
+                <div className="mb-6">
+                    <button className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:border-emerald-200 hover:text-emerald-700"
                         onClick={() => navigate('/home')}>
-                        <h2 className="text-white text-4xl text-center font-bold">Voltar</h2>
+                        Voltar
                     </button>
                 </div>
                 <div className="flex flex-col items-center">
                     {openForm ? (
-                        <button className="rounded-xl border border-gray-600 w-full max-w-4xl h-44 bg-gray-800 mt-10 hover:bg-gray-700 transition-colors"
+                        <button className="mt-4 flex min-h-32 w-full items-center justify-center rounded-2xl border border-dashed border-emerald-300 bg-white p-6 shadow-sm transition hover:border-emerald-500 hover:bg-emerald-50"
                             onClick={handleAddInvestment}
                         >
-                            <h2 className="text-white text-4xl text-center font-bold">
+                            <h2 className="text-center text-2xl font-bold text-emerald-700">
                                 + ADICIONAR INVESTIMENTO
                             </h2>
                         </button>
                     ) : (
-                        <div className="flex flex-col items-center justify-center rounded-xl border border-gray-600 w-full max-w-4xl h-auto bg-gray-800 mt-6 p-6">
+                        <div className="mt-4 flex w-full flex-col items-center justify-center rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                             <div className="w-full space-y-4">
                                 <input
                                     type="text"
                                     placeholder="Nome da investmento"
-                                    className="w-full h-14 rounded-md border border-gray-600 bg-gray-500 text-white px-3 placeholder-gray-300"
+                                    className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-gray-900 placeholder:text-gray-400 transition focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-100"
                                     onChange={(e) => setName(e.target.value)}
                                     value={name}
                                 />
                                 <input
                                     type="number"
                                     placeholder="Valor mensal"
-                                    className="w-full h-14 rounded-md border border-gray-600 bg-gray-500 text-white px-3 placeholder-gray-300"
+                                    className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-gray-900 placeholder:text-gray-400 transition focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-100"
                                     onChange={(e) => setPrice(e.target.value)}
                                     value={price}
                                 />
 
-                                <button className="rounded-xl border border-gray-600 w-full h-14 bg-green-600! hover:bg-green-700! transition-colors"
+                                <button className="h-12 w-full rounded-xl bg-emerald-600 px-5 text-base font-semibold text-white shadow-sm transition hover:bg-emerald-700 active:scale-[0.99]"
                                     onClick={handleSaveInvestment}
                                 >
-                                    <h2 className="text-white text-2xl text-center font-bold">
-                                        + ADICIONAR INVESTIMENTO
-                                    </h2>
+                                    + ADICIONAR INVESTIMENTO
                                 </button>
-                                <button className="rounded-xl border border-gray-600 w-full h-14 bg-red-700! hover:bg-red-800! transition-colors"
+                                <button className="h-12 w-full rounded-xl border border-red-200 bg-red-50 px-5 text-base font-semibold text-red-700 transition hover:bg-red-100 active:scale-[0.99]"
                                     onClick={handleCancel}
                                 >
-                                    <h2 className="text-white text-2xl text-center font-bold">
-                                        CANCELAR
-                                    </h2>
+                                    CANCELAR
                                 </button>
                             </div>
                         </div>
                     )}
-                    <div className="w-full max-w-4xl mt-10 flex flex-col gap-4">
+                    <div className="mt-8 flex w-full flex-col gap-4">
                         {InvestmentStorage.map((Investment, index) => (
-                            <div key={index} className="rounded-xl border border-gray-600 w-full h-44 bg-gray-800 p-6 relative">
-                                <div className="absolute top-0 right-0 flex items-center justify-center w-10 h-10 rounded-md bg-red-800  cursor-pointer hover:bg-red-900 transition-colors"
+                            <div key={index} className="relative min-h-32 w-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                                <div className="absolute right-4 top-4 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-red-50 text-red-700 transition hover:bg-red-100"
                                     onClick={() => handleRemove(index)}
                                 >
-                                    <span className="text-white font-bold text-xl">X</span>
+                                    <span className="text-base font-bold">X</span>
                                 </div>
-                                <div className="flex flex-col items-center justify-center h-full">
-                                    <h2 className="text-white text-4xl text-center font-bold">{investment.name}</h2>
-                                    <h3 className="text-gray-300 text-2xl text-center font-medium mt-2">R$ {investment.value}</h3>
+                                <div className="flex min-h-20 flex-col justify-center pr-12">
+                                    <h2 className="text-2xl font-bold text-gray-950">{investment.name}</h2>
+                                    <h3 className="mt-2 text-lg font-semibold text-emerald-700">R$ {investment.value}</h3>
                                 </div>
                             </div>
                         ))}

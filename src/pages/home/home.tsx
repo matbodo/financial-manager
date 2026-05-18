@@ -5,33 +5,34 @@ export function HomePage() {
     const navigate = useNavigate();
 
     return (
-        <div className="w-screen min-h-screen bg-gray-950 flex">
-            <div className="w-full max-w-7xl mx-auto bg-gray-700 min-h-screen px-10 py-6">
-                <div className="flex flex-col items-center mt-10 gap-6">
-                    <div className="mb-16">
-                        <h1 className="text-white text-6xl font-bold text-center mb-8">RENDA ATUAL</h1>
+        <div className="min-h-screen w-full bg-emerald-950 px-4 py-8 items-center justify-center flex">
+            <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
+                <section className="rounded-2xl border border-emerald-700 bg-emerald-50 p-6 mb-5 shadow-sm">
+                    <h1 className="text-3xl font-bold tracking-tight text-emerald-700">RENDA ATUAL</h1>
+                    <div className="mt-5">
                         <input
                             type="number"
-                            placeholder="Renda Mensal"
-                            className="w-full h-14 px-3 flex justify-items-center rounded-md font-bold text-3xl border border-gray-800 bg-gray-500 text-green-600 placeholder-gray-300"
+                            className="h-14 w-full rounded-xl border border-emerald-950 bg-gray-50 px-4 text-2xl font-bold text-emerald-700 transition placeholder:text-gray-400 focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-100 sm:max-w-sm"
                         />
                     </div>
-                    <button className="rounded-xl border border-gray-600 w-full max-w-4xl h-44 bg-gray-800 hover:bg-gray-700 transition-colors"
-                        onClick={() => navigate('/assinaturas')}>
-                        <h2 className="text-white text-4xl text-center font-bold">ASSINATURAS</h2>
-                    </button>
+                </section>
 
-                    <button className="rounded-xl border border-gray-600 w-full max-w-4xl h-44 bg-gray-800 hover:bg-gray-700 transition-colors"
-                        onClick={() => navigate('/gastos')}>
-                        <h2 className="text-white text-4xl text-center font-bold">GASTOS</h2>
-                    </button>
+                <button className="flex min-h-32 w-full items-center justify-between rounded-2xl border border-emerald-700 bg-emerald-50  p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md"
+                    onClick={() => navigate('/assinaturas')}>
+                    <h2 className="text-2xl font-bold text-emerald-700">ASSINATURAS</h2>
+                </button>
 
-                    <button className="rounded-xl border border-gray-600 w-full max-w-4xl h-44 bg-gray-800 hover:bg-gray-700 transition-colors"
-                        onClick={() => navigate('/investimentos')}>
-                        <h2 className="text-white text-4xl text-center font-bold">INVESTIMENTOS</h2>
-                    </button>
-                </div>
+                <button className="flex min-h-32 w-full items-center justify-between rounded-2xl border border-emerald-700 bg-emerald-50  p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md"
+                    onClick={() => navigate('/gastos')}>
+                    <h2 className="text-2xl font-bold text-emerald-700">GASTOS</h2>
+                </button>
+
+                <button className="flex min-h-32 w-full items-center justify-between rounded-2xl border border-emerald-700 bg-emerald-50  p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md"
+                    onClick={() => navigate('/investimentos')}>
+                    <h2 className="text-2xl font-bold text-emerald-700">INVESTIMENTOS</h2>
+                </button>
             </div>
+
         </div>
     )
 }

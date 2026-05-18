@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment } from "react";
 import { HomePage } from "./pages/home/home";
 import { RoutesPage } from "./routes";
 import { BrowserRouter } from "react-router-dom";
@@ -6,7 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 function App() {
   return (
     <BrowserRouter>
-      <RoutesPage />
+      <Fragment>
+        <RoutesPage />
+      </Fragment>
     </BrowserRouter>
   );
 }
