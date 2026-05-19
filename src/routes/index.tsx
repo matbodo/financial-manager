@@ -5,7 +5,7 @@ import { RegisterPage } from "../auth/register";
 import { HomePage } from "../pages/home/home";
 import { AssinaturasPage } from "../pages/signatures/signatures";
 import { GastosPage } from "../pages/expenses/index";
-import { InvestimentosPage } from "../pages/investments/index";
+import { InvestmentsPage } from "../pages/investments/index";
 
 const Private = ({ Item }) => {
     const signed = localStorage.getItem('user') || sessionStorage.getItem('user');
@@ -21,7 +21,7 @@ export function RoutesPage() {
             <Route path="/home" element={<Private Item={HomePage} />} />
             <Route path="/assinaturas" element={<Private Item={AssinaturasPage} />} />
             <Route path="/gastos" element={<Private Item={GastosPage} />} />
-            <Route path="/investimentos" element={<Private Item={InvestimentosPage} />} />
+            <Route path="/investimentos" element={<Private Item={InvestmentsPage} />} />
             <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
     );

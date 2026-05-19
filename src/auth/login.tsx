@@ -80,7 +80,7 @@ export function LoginPage() {
                     </button>
 
                     <div className="text-center text-sm text-gray-600">
-                        Não tem uma conta?
+                        Não tem uma conta? {' '}
                         <Link
                             to="/register"
                             className="font-semibold text-emerald-700 transition hover:text-emerald-800"
