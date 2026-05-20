@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ConfirmDialog } from '../../molecules/confirmDialog';
+import { FaTrash } from 'react-icons/fa';
 import API from '../../services/api';
 
 export function AssinaturasPage() {
@@ -145,10 +146,10 @@ export function AssinaturasPage() {
                         <div className="mt-8 flex w-full flex-col gap-4">
                             {signatureStorage.map((signature, index) => (
                                 <div key={index} className="relative min-h-32 w-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                                    <div className="absolute right-4 top-4 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-red-50 text-red-700 transition hover:bg-red-100"
+                                    <div className="absolute right-4 top-4 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-red-700 transition hover:bg-red-100"
                                         onClick={() => handleOpenDelete(signature)}
                                     >
-                                        <span className="text-base font-bold">X</span>
+                                        <span className="text-base font-bold"><FaTrash /></span>
                                     </div>
                                     <div className="flex min-h-20 flex-col justify-center pr-12">
                                         <h2 className="text-2xl font-bold text-gray-950">{signature.name}</h2>
@@ -168,6 +169,7 @@ export function AssinaturasPage() {
                 message="Tem certeza que deseja cancelar esta assinatura?"
                 onCancel={handleCancelDelete}
                 onConfirm={handleConfirmDelete}
+                confirmMessage="Excluir"
                 confirmLoading={isPending}
             />
 
