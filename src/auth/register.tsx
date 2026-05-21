@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaUser, FaLock, FaMailBulk } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import API from '../services/api';
 
 export function RegisterPage() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,12 +21,13 @@ export function RegisterPage() {
                 email,
                 password
             });
-
-            localStorage.setItem('user', JSON.stringify(response.data));
+            const storage = rememberMe ? localStorage : sessionStorage;
+            storage.setItem('token', response.data.token);
+            storage.setItem('user', JSON.stringify(response.data.user));
             navigate('/home');
 
         } catch (error) {
-            alert('Erro ao registrar usuário. Email já pode estar em uso');
+            alert('Erro ao registrar usuário. Verifique os dados e tente novamente.');
         }
     };
 
@@ -67,7 +71,12 @@ export function RegisterPage() {
 
                     <div className="flex flex-col gap-3 text-sm text-gray-600 sm:flex-row sm:items-center sm:justify-between">
                         <label className="flex items-center gap-2">
-                            <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-emerald-600 accent-emerald-600" />
+                            <input
+                                type="checkbox"
+                                className="h-4 w-4 rounded border-gray-300 text-emerald-600 accent-emerald-600"
+                                checked={rememberMe}
+                                onChange={(e) => setRememberMe(e.target.checked)}
+                            />
                             Lembre de mim
                         </label>
                     </div>
@@ -76,8 +85,18 @@ export function RegisterPage() {
                         className="h-12 w-full rounded-xl bg-emerald-600 px-5 text-base font-semibold text-white shadow-sm transition hover:bg-emerald-700 active:scale-[0.99]"
                         type="submit"
                     >
-                        Entrar
+                        Registre-se
                     </button>
+
+                    <div className="text-center text-sm text-gray-600">
+                        Já tem uma conta? {' '}
+                        <Link
+                            to="/login"
+                            className="font-semibold text-emerald-700 transition hover:text-emerald-800"
+                        >
+                            Entrar
+                        </Link>
+                    </div>
                 </form>
             </div>
         </div>

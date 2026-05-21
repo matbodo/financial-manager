@@ -3,12 +3,12 @@ import { Fragment } from "react";
 import { LoginPage } from "../auth/login";
 import { RegisterPage } from "../auth/register";
 import { HomePage } from "../pages/home/home";
-import { AssinaturasPage } from "../pages/signatures/signatures";
+import { AssinaturasPage } from "../pages/signatures/index";
 import { GastosPage } from "../pages/expenses/index";
 import { InvestmentsPage } from "../pages/investments/index";
 
 const Private = ({ Item }) => {
-    const signed = localStorage.getItem('user') || sessionStorage.getItem('user');
+    const signed = localStorage.getItem('token') || sessionStorage.getItem('token');
 
     return signed ? <Item /> : <Navigate to="/login" />
 }

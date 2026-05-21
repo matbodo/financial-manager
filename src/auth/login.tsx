@@ -6,7 +6,7 @@ import API from '../services/api';
 export function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [remeberMe, setRememberMe] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -18,8 +18,9 @@ export function LoginPage() {
                 password
             });
 
-            const storage = remeberMe ? localStorage : sessionStorage;
-            storage.setItem('user', JSON.stringify(response.data));
+            const storage = rememberMe ? localStorage : sessionStorage;
+            storage.setItem('token', response.data.token);
+            storage.setItem('user', JSON.stringify(response.data.user));
 
             navigate('/home');
 
@@ -27,10 +28,6 @@ export function LoginPage() {
             alert('Email ou senha incorretos. ');
         }
     };
-
-    // const rememberMe = () => {
-    //     localStorage.setItem('user', JSON.stringify(response.data));
-    // }
 
     return (
         <div className="flex min-h-screen w-full items-center justify-center bg-emerald-950 px-4 py-10">
@@ -64,7 +61,7 @@ export function LoginPage() {
                         <label className="flex items-center gap-2">
                             <input
                                 type="checkbox"
-                                checked={remeberMe}
+                                checked={rememberMe}
                                 onChange={(e) => setRememberMe(e.target.checked)}
                                 className="h-4 w-4 rounded border-gray-300 text-emerald-600 accent-emerald-600" />
                             Lembre de mim

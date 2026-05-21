@@ -16,15 +16,20 @@ export function HomePage() {
         totalGeral: 0,
     });
 
+    const formatCurrency = (value: number) => {
+        return Number(value).toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+        });
+    };
+
     const userStorage =
         localStorage.getItem('user') || sessionStorage.getItem('user');
     const user = userStorage ? JSON.parse(userStorage) : null;
 
     const handleIncomeChange = async () => {
-        if (!user) return;
-
         try {
-            const response = await API.patch(`/usuarios/${user.id}/renda`, {
+            const response = await API.patch(`/usuarios/renda`, {
                 income: Number(income),
             })
 
@@ -36,7 +41,9 @@ export function HomePage() {
 
     const handleLogout = () => {
         localStorage.removeItem('user');
+        localStorage.removeItem('token');
         sessionStorage.removeItem('user');
+        sessionStorage.removeItem('token');
 
         setLogoutDialogOpen(false);
         navigate('/login');
@@ -54,7 +61,7 @@ export function HomePage() {
         async function totalResponse() {
             if (!user) return;
 
-            const response = await API.get(`/resumo/${user.id}`);
+            const response = await API.get(`/resumo`);
             setTotal(response.data);
             setIncome(String(response.data.income));
         }
@@ -92,10 +99,7 @@ export function HomePage() {
                             <div className="mt-4 flex h-14 items-center rounded-xl border border-emerald-300 bg-emerald-100 px-4">
                                 <span
                                     className="text-2xl font-bold text-emerald-700">
-                                    {Number(total.totalGeral).toLocaleString('pt-BR', {
-                                        style: 'currency',
-                                        currency: 'BRL',
-                                    })}
+                                    {formatCurrency(total.totalGeral)}
                                 </span>
                             </div>
                         </div>
@@ -105,10 +109,7 @@ export function HomePage() {
                             <div className="mt-4 flex h-14 items-center rounded-xl border border-emerald-300 bg-emerald-950 px-4">
                                 <span
                                     className="text-2xl font-bold text-emerald-500">
-                                    {Number(income ? income - total.totalGeral : 0).toLocaleString('pt-BR', {
-                                        style: 'currency',
-                                        currency: 'BRL',
-                                    })}
+                                    {formatCurrency(income ? income - total.totalGeral : 0)}
                                 </span>
                             </div>
                         </div>
@@ -120,10 +121,7 @@ export function HomePage() {
                         <h2 className="text-2xl font-bold text-emerald-700">ASSINATURAS</h2>
                         <span
                             className="shrink-0 rounded-xl bg-emerald-900 px-4 py-3 text-lg font-bold text-emerald-100">
-                            TOTAL: {Number(total.assinaturas).toLocaleString('pt-BR', {
-                                style: 'currency',
-                                currency: 'BRL',
-                            })}
+                            TOTAL: {formatCurrency(total.assinaturas)}
                         </span>
                     </button>
 
@@ -132,10 +130,7 @@ export function HomePage() {
                         <h2 className="text-2xl font-bold text-emerald-700">GASTOS</h2>
                         <span
                             className="shrink-0 rounded-xl bg-emerald-900 px-4 py-3 text-lg font-bold text-emerald-100">
-                            TOTAL: {Number(total.gastos).toLocaleString('pt-BR', {
-                                style: 'currency',
-                                currency: 'BRL',
-                            })}
+                            TOTAL: {formatCurrency(total.gastos)}
                         </span>
                     </button>
 
@@ -144,10 +139,7 @@ export function HomePage() {
                         <h2 className="text-2xl font-bold text-emerald-700">INVESTIMENTOS</h2>
                         <span
                             className="shrink-0 rounded-xl bg-emerald-900 px-4 py-3 text-lg font-bold text-emerald-100">
-                            TOTAL: {Number(total.investimentos).toLocaleString('pt-BR', {
-                                style: 'currency',
-                                currency: 'BRL',
-                            })}
+                            TOTAL: {formatCurrency(total.investimentos)}
                         </span>
                     </button>
                 </div>
