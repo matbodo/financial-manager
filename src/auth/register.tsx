@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaLock, FaMailBulk } from 'react-icons/fa';
+import { FaUser, FaLock, FaMailBulk, FaExclamationTriangle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import API from '../services/api';
 
@@ -38,6 +38,16 @@ export function RegisterPage() {
                     <div className="space-y-2 text-center">
                         <h1 className="text-3xl font-bold tracking-tight text-gray-950">Registre-se</h1>
                     </div>
+
+                    <div className="flex gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-left text-sm text-amber-900">
+                        <FaExclamationTriangle className="mt-0.5 shrink-0 text-amber-600" />
+                        <p>
+                            Este projeto está em desenvolvimento para fins de portfólio.
+                            Não utilize dados reais ou informações sensíveis. <br />
+                            Estamos trabalhando para garantir a segurança, mas recomendamos cautela ao compartilhar informações pessoais.
+                        </p>
+                    </div>
+
 
                     <div className="relative">
                         <input

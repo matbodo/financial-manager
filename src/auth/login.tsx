@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { FaUser, FaLock } from 'react-icons/fa';
+import { FaUser, FaLock, FaExclamationTriangle } from 'react-icons/fa';
 import API from '../services/api';
 
 export function LoginPage() {
@@ -35,6 +35,14 @@ export function LoginPage() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2 text-center">
                         <h1 className="text-3xl font-bold tracking-tight text-gray-950">Acesse o sistema</h1>
+                    </div>
+
+                    <div className="flex gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-left text-sm text-amber-900">
+                        <FaExclamationTriangle className="mt-0.5 shrink-0 text-amber-600" />
+                        <p>
+                            Este projeto está em desenvolvimento para fins de portfólio.
+                            Não utilize dados reais ou informações sensíveis.
+                        </p>
                     </div>
 
                     <div className="relative">
