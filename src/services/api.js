@@ -15,4 +15,25 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const status = error.response?.status;
+    const requestUrl = error.config?.url || "";
+    const isAuthRequest =
+      requestUrl.includes("/login") || requestUrl.includes("/register");
+
+    if (status === 401 && !isAuthRequest) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("user");
+
+      window.location.href = "/login";
+    }
+
+    return Promise.reject(error);
+  },
+);
+
 export default API;

@@ -22,6 +22,7 @@ const formatCurrency = (value: number) => {
 export function AssinaturasPage() {
     const [signatureStorage, setSignatureStorage] = useState<Array<Signature>>([]);
     const [signatureToDelete, setSignatureToDelete] = useState<Signature | null>(null);
+    const [billingDay, setBillingDay] = useState('');
     const [isPending, setIsPending] = useState(false);
     const [openForm, setOpenForm] = useState(true);
     const [value, setValue] = useState('');
@@ -43,6 +44,7 @@ export function AssinaturasPage() {
             const response = await API.post('/assinaturas', {
                 name,
                 value: Number(value),
+                billingDay: Number(billingDay),
             })
 
             setSignatureStorage([...signatureStorage, response.data])
@@ -127,11 +129,11 @@ export function AssinaturasPage() {
                         </section>
 
                         {openForm ? (
-                            <button className="mt-5 flex min-h-24 w-full items-center justify-center rounded-2xl border border-emerald-300 bg-emerald-50 p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:bg-emerald-100 hover:shadow-md active:scale-[0.99] animate-[formIn_180ms_ease-out]"
+                            <button className="mt-5 flex min-h-24 w-full items-center justify-center rounded-2xl border border-emerald-300 bg-emerald-50 p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:bg-emerald-100 hover:shadow-md active:scale-[0.99]"
                                 onClick={handleAddSignature}
                             >
                                 <h2 className="text-center text-2xl font-bold text-emerald-700">
-                                    + ADICIONAR ASSINATURAS
+                                    + ADICIONAR ASSINATURA
                                 </h2>
                             </button>
                         ) : (
@@ -150,6 +152,15 @@ export function AssinaturasPage() {
                                         className="h-12 w-full rounded-xl border border-emerald-700 bg-gray-50 px-4 text-gray-900 placeholder:text-gray-400 transition focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-100"
                                         onChange={(e) => setValue(e.target.value)}
                                         value={value}
+                                    />
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        max="31"
+                                        className="h-12 w-full rounded-xl border border-emerald-700 bg-gray-50 px-4 text-gray-900 placeholder:text-gray-400 transition focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-100"
+                                        placeholder="Dia de cobrança"
+                                        onChange={(e) => setBillingDay(e.target.value)}
+                                        value={billingDay}
                                     />
 
                                     <button className="h-12 w-full rounded-xl bg-emerald-600 px-5 text-base font-semibold text-white shadow-sm transition hover:bg-emerald-700 active:scale-[0.99]"
@@ -173,13 +184,18 @@ export function AssinaturasPage() {
                                     >
                                         <span className="text-base font-bold"><FaTrash /></span>
                                     </div>
-                                    <div className="flex min-h-24 flex-col gap-4 pr-12 sm:flex-row sm:items-center sm:justify-between">
+                                    <div className="flex min-h-20 flex-col gap-4 pr-12 sm:flex-row sm:items-center sm:justify-between">
                                         <div>
                                             <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">Assinatura ativa</p>
                                             <h2 className="mt-1 text-2xl font-bold text-gray-950">{signature.name}</h2>
                                         </div>
-                                        <div className="inline-flex w-fit rounded-xl bg-emerald-900 px-4 py-3 text-lg font-bold text-emerald-50">
-                                            {formatCurrency(signature.value)}
+                                        <div className="flex flex-col items-end gap-1">
+                                            <div className="inline-flex w-40 rounded-lg bg-emerald-900 px-4 py-2 text-lg font-bold text-emerald-50">
+                                                {signature.billing_day}º dia do mês
+                                            </div>
+                                            <div className="inline-flex w-40 rounded-lg bg-emerald-900 px-4 py-2 text-lg font-bold text-emerald-50">
+                                                {formatCurrency(signature.value)}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

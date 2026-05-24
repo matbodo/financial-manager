@@ -12,9 +12,16 @@ type Expense = {
     user_id: number;
 };
 
+const formatCurrency = (value: number) => {
+    return Number(value).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+    });
+};
+
 export function GastosPage() {
-    const [expenseStorage, setExpenseStorage] = useState<Array<Expense>>([]);
     const [expenseToDelete, setExpenseToDelete] = useState<Expense | null>(null);
+    const [expenseStorage, setExpenseStorage] = useState<Array<Expense>>([]);
     const [isPending, setIsPending] = useState(false);
     const [openForm, setOpenForm] = useState(true);
     const [value, setValue] = useState('');
@@ -23,12 +30,7 @@ export function GastosPage() {
     const navigate = useNavigate();
     const totalExpenses = expenseStorage.reduce((total, expense) => total + Number(expense.value), 0);
 
-    const formatCurrency = (value: number) => {
-        return Number(value).toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-        });
-    };
+    const formatedDate = (expense) => String(expense.created_at).split('T')[0].split('-').reverse().join('/');
 
     const handleAddExpense = () => {
         setOpenForm(false)
@@ -43,6 +45,7 @@ export function GastosPage() {
             const response = await API.post('/gastos', {
                 name,
                 value: Number(value),
+                date: new Date(),
             })
 
             setExpenseStorage([...expenseStorage, response.data])
@@ -127,7 +130,7 @@ export function GastosPage() {
                         </section>
 
                         {openForm ? (
-                            <button className="mt-5 flex min-h-24 w-full items-center justify-center rounded-2xl border border-emerald-300 bg-emerald-50 p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:bg-emerald-100 hover:shadow-md active:scale-[0.99] animate-[formIn_180ms_ease-out]"
+                            <button className="mt-5 flex min-h-24 w-full items-center justify-center rounded-2xl border border-emerald-300 bg-emerald-50 p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:bg-emerald-100 hover:shadow-md active:scale-[0.99]"
                                 onClick={handleAddExpense}
                             >
                                 <h2 className="text-center text-2xl font-bold text-emerald-700">
@@ -135,7 +138,7 @@ export function GastosPage() {
                                 </h2>
                             </button>
                         ) : (
-                            <div className="mt-4 flex w-full flex-col items-center justify-center rounded-2xl border border-emerald-900 bg-emerald-50 p-6 shadow-sm animate-[formIn_180ms_ease-out]">
+                            <div className="mt-4 flex w-full items-center justify-center rounded-2xl border border-emerald-900 bg-emerald-50 p-6 shadow-sm animate-[formIn_180ms_ease-out]">
                                 <div className="w-full space-y-4">
                                     <input
                                         type="text"
@@ -157,7 +160,7 @@ export function GastosPage() {
                                     >
                                         + ADICIONAR GASTO
                                     </button>
-                                    <button className="h-12 w-full rounded-xl border border-red-200 bg-red-50 px-5 text-base font-semibold text-red-700 transition hover:bg-red-100 active:scale-[0.99]"
+                                    <button className="h-12 w-full rounded-xl border border-red-600 bg-white px-5 text-base font-semibold text-red-600 transition hover:bg-red-100 active:scale-[0.99]"
                                         onClick={handleCancel}
                                     >
                                         CANCELAR
@@ -178,8 +181,13 @@ export function GastosPage() {
                                             <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">Gasto</p>
                                             <h2 className="mt-1 text-2xl font-bold text-gray-950">{expense.name}</h2>
                                         </div>
-                                        <div className="inline-flex w-fit rounded-xl bg-emerald-900 px-4 py-3 text-lg font-bold text-emerald-50">
-                                            {formatCurrency(expense.value)}
+                                        <div className="flex flex-col items-end gap-1">
+                                            <div className="inline-flex w-32 rounded-xl bg-emerald-900 px-4 py-3 text-lg font-bold text-emerald-50">
+                                                {formatCurrency(expense.value)}
+                                            </div>
+                                            <div className="inline-flex w-32 rounded-xl bg-emerald-900 px-4 py-3 text-lg font-bold text-emerald-50">
+                                                {formatedDate(expense)}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
