@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://financial-manager-back-production.up.railway.app/",
 });
 
 API.interceptors.request.use((config) => {
